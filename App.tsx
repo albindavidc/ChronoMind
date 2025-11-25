@@ -19,7 +19,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full max-w-lg mx-auto p-4 relative overflow-hidden flex flex-col">
+      <main className="flex-1 w-full max-w-lg mx-auto p-4 pb-28 relative overflow-hidden flex flex-col">
         {activeTab === 'timer' && (
            <TimerView />
         )}
@@ -30,8 +30,10 @@ const App: React.FC = () => {
       </main>
 
       {/* Navigation */}
-      <div className="sticky bottom-0 w-full bg-gradient-to-t from-black via-black to-transparent pt-4">
-        <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <div className="fixed bottom-0 left-0 right-0 p-6 flex justify-center z-50 pointer-events-none bg-gradient-to-t from-black via-black/50 to-transparent">
+        <div className="pointer-events-auto">
+          <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
+        </div>
       </div>
     </div>
   );

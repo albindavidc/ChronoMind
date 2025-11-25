@@ -9,25 +9,29 @@ interface TabsProps {
 
 const Tabs: React.FC<TabsProps> = ({ activeTab, onTabChange }) => {
   return (
-    <div className="flex items-center justify-around w-full max-w-md mx-auto bg-gray-900/90 backdrop-blur-md border-t border-gray-800 p-2 pb-6 md:pb-2 md:rounded-full md:mb-4 md:border">
+    <div className="flex items-center justify-center gap-2 p-1.5 mx-auto bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-full shadow-2xl shadow-black/80">
       <button
         onClick={() => onTabChange('timer')}
-        className={`flex flex-col items-center space-y-1 p-2 rounded-xl w-20 transition-all ${
-          activeTab === 'timer' ? 'text-orange-500' : 'text-gray-500 hover:text-gray-300'
+        className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-full transition-all duration-300 ${
+          activeTab === 'timer' 
+            ? 'bg-gray-800 text-orange-500 shadow-md shadow-black/20' 
+            : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
         }`}
       >
-        <Timer size={24} strokeWidth={activeTab === 'timer' ? 2.5 : 2} />
-        <span className="text-[10px] font-medium tracking-wide">Timer</span>
+        <Timer size={18} strokeWidth={activeTab === 'timer' ? 2.5 : 2} />
+        <span className="text-xs font-semibold tracking-wider uppercase">Timer</span>
       </button>
       
       <button
         onClick={() => onTabChange('stopwatch')}
-        className={`flex flex-col items-center space-y-1 p-2 rounded-xl w-20 transition-all ${
-          activeTab === 'stopwatch' ? 'text-blue-400' : 'text-gray-500 hover:text-gray-300'
+        className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-full transition-all duration-300 ${
+          activeTab === 'stopwatch' 
+            ? 'bg-gray-800 text-blue-400 shadow-md shadow-black/20' 
+            : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
         }`}
       >
-        <Watch size={24} strokeWidth={activeTab === 'stopwatch' ? 2.5 : 2} />
-        <span className="text-[10px] font-medium tracking-wide">Stopwatch</span>
+        <Watch size={18} strokeWidth={activeTab === 'stopwatch' ? 2.5 : 2} />
+        <span className="text-xs font-semibold tracking-wider uppercase">Stopwatch</span>
       </button>
     </div>
   );
