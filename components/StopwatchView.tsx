@@ -11,7 +11,7 @@ const StopwatchView: React.FC = () => {
     laps: [],
   });
   
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number | null>(null);
 
   const animate = (time: number) => {
     setState((prev) => {
