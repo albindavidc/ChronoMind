@@ -1,13 +1,63 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- Background: Pure Black to blend seamlessly with splash screen -->
-  <rect width="512" height="512" fill="#000000"/>
+  <defs>
+    <linearGradient id="casingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#434343;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </linearGradient>
 
-  <!-- Main Ring: Pure White -->
-  <circle cx="256" cy="256" r="190" fill="none" stroke="#FFFFFF" stroke-width="32" />
-  
-  <!-- Hands: Pure White with rounded caps -->
-  <path d="M256 120 V256 L360 320" fill="none" stroke="#FFFFFF" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" />
-  
-  <!-- Center Dot: Pure White -->
-  <circle cx="256" cy="256" r="24" fill="#FFFFFF" />
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+      <feOffset dx="2" dy="3" />
+      <feComponentTransfer>
+          <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Main Casing (Squircle) -->
+  <rect width="512" height="512" rx="115" ry="115" fill="url(#casingGradient)" />
+
+  <!-- Inner Content Scaled 85% for Safe Zone Protection -->
+  <g transform="translate(256 256) scale(0.85) translate(-256 -256)">
+      <!-- White Clock Face -->
+      <circle cx="256" cy="256" r="190" fill="#FFFFFF" />
+
+      <!-- Inner Metallic Ring -->
+      <circle cx="256" cy="256" r="190" fill="none" stroke="#2a2a2a" stroke-width="2" opacity="0.1" />
+
+      <!-- Hour Markers -->
+      <g stroke="#1a1a1a" stroke-width="12" stroke-linecap="round">
+        <line x1="256" y1="90" x2="256" y2="110" />
+        <line x1="422" y1="256" x2="402" y2="256" />
+        <line x1="256" y1="422" x2="256" y2="402" />
+        <line x1="90" y1="256" x2="110" y2="256" />
+      </g>
+      
+      <!-- Minute Markers -->
+      <g fill="#a0a0a0">
+         <circle cx="339" cy="112" r="4" />
+         <circle cx="400" cy="173" r="4" />
+         <circle cx="400" cy="339" r="4" />
+         <circle cx="339" cy="400" r="4" />
+         <circle cx="173" cy="400" r="4" />
+         <circle cx="112" cy="339" r="4" />
+         <circle cx="112" cy="173" r="4" />
+         <circle cx="173" cy="112" r="4" />
+      </g>
+
+      <!-- Hands Container -->
+      <g filter="url(#softShadow)">
+        <line x1="256" y1="256" x2="256" y2="150" stroke="#1a1a1a" stroke-width="20" stroke-linecap="round" />
+        <line x1="256" y1="256" x2="350" y2="256" stroke="#1a1a1a" stroke-width="20" stroke-linecap="round" />
+        <circle cx="256" cy="256" r="18" fill="#1a1a1a" />
+        <circle cx="256" cy="256" r="8" fill="#4a4a4a" />
+      </g>
+  </g>
+
+  <!-- Premium Glass Highlight (Unscaled to match casing) -->
+  <path d="M 50,50 Q 256,0 462,50 Q 512,100 512,256 L 512,120 Q 512,20 420,20 L 92,20 Q 0,20 0,120 L 0,256 Q 0,100 50,50 Z" fill="white" opacity="0.15" />
 </svg>
