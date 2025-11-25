@@ -20,9 +20,3 @@ export interface StopwatchState {
   elapsed: number; // milliseconds
   laps: Lap[];
 }
-
-export interface SmartSuggestion {
-  task: string;
-  durationSeconds: number;
-  reasoning: string;
-}
