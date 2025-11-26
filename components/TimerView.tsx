@@ -1,16 +1,19 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Plus, Minus } from 'lucide-react';
 import CircularProgress from './CircularProgress';
-import { formatTime, playAlarm } from '../utils/time';
-import { TimerState } from '../types';
+import { formatTime } from '../utils/time';
+import { playTone } from '../utils/soundEngine';
+import { TimerState, SoundId } from '../types';
 
 const PRESETS = [60, 180, 300, 600, 1500, 3600];
 
 interface TimerViewProps {
   startDuration?: number;
+  soundId: SoundId;
 }
 
-const TimerView: React.FC<TimerViewProps> = ({ startDuration = 300 }) => {
+const TimerView: React.FC<TimerViewProps> = ({ startDuration = 300, soundId }) => {
   const [state, setState] = useState<TimerState>({
     isActive: false,
     isPaused: false,
@@ -27,7 +30,7 @@ const TimerView: React.FC<TimerViewProps> = ({ startDuration = 300 }) => {
         setState((prev) => {
           if (prev.timeLeft <= 0) {
             if (intervalRef.current) clearInterval(intervalRef.current);
-            playAlarm();
+            playTone(soundId); // Play selected sound
             return { ...prev, isActive: false, isPaused: false, timeLeft: 0 };
           }
           return { ...prev, timeLeft: prev.timeLeft - 1 };
@@ -40,7 +43,7 @@ const TimerView: React.FC<TimerViewProps> = ({ startDuration = 300 }) => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [state.isActive, state.isPaused]);
+  }, [state.isActive, state.isPaused, soundId]);
 
   const toggleTimer = () => {
     setState((prev) => ({ ...prev, isActive: true, isPaused: !prev.isPaused }));

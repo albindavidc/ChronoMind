@@ -1,12 +1,25 @@
+
 import React, { useState, useEffect } from 'react';
 import Tabs from './components/Tabs';
 import TimerView from './components/TimerView';
 import StopwatchView from './components/StopwatchView';
-import { Tab } from './types';
+import SettingsView from './components/SettingsView';
+import { Tab, SoundId } from './types';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('timer');
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Sound Preference State (Default: 'ethereal')
+  const [selectedSound, setSelectedSound] = useState<SoundId>(() => {
+    const saved = localStorage.getItem('chronos_sound');
+    return (saved as SoundId) || 'ethereal';
+  });
+
+  const handleSoundChange = (id: SoundId) => {
+    setSelectedSound(id);
+    localStorage.setItem('chronos_sound', id);
+  };
 
   useEffect(() => {
     if (isLoading) {
@@ -51,11 +64,15 @@ const App: React.FC = () => {
       {/* Main Content Area */}
       <main className="flex-1 w-full max-w-lg mx-auto p-4 pb-24 relative flex flex-col min-h-0 z-10">
         {activeTab === 'timer' && (
-           <TimerView />
+           <TimerView soundId={selectedSound} />
         )}
         
         {activeTab === 'stopwatch' && (
            <StopwatchView />
+        )}
+
+        {activeTab === 'settings' && (
+           <SettingsView currentSound={selectedSound} onSoundChange={handleSoundChange} />
         )}
       </main>
 

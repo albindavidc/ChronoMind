@@ -1,4 +1,13 @@
-export type Tab = 'timer' | 'stopwatch';
+
+export type Tab = 'timer' | 'stopwatch' | 'settings';
+
+export type SoundId = 'classic' | 'ethereal' | 'cosmic' | 'zen' | 'digital';
+
+export interface SoundPreset {
+  id: SoundId;
+  name: string;
+  description: string;
+}
 
 export interface TimerState {
   isActive: boolean;
